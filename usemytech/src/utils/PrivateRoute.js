@@ -1,6 +1,7 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom'
 
+// Gets token to be able to acess private server content
 const PrivateRoute = ({ component: Component, ...rest}) => {
     const token = window.localStorage.getItem('token');
     return (
