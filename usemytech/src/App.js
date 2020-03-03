@@ -1,15 +1,19 @@
-import React from 'react';
-import {Route, Switch} from 'react-router-dom';
-import PrivateRoute from './utils/PrivateRoute';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import './App.css';
+import Login from "./components/Login";
+import "./App.css";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <div className="App">
-      <Switch>
-        <Route exact path='/' component={Login} />
-      </Switch>
+      <Router>
+        <NavBar />
+        <Switch>
+          <Route exact path="/" component={Login} />
+        </Switch>
+      </Router>
     </div>
   );
 }
