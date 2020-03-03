@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -27,10 +27,15 @@ export default function MenuAppBar() {
   const [auth, setAuth] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const token = window.localStorage.getItem('token');
 
-  const handleChange = event => {
-    setAuth(event.target.checked);
-  };
+  useEffect(()=>{
+  if(token){
+      setAuth(true)
+  } else {
+      setAuth(false)
+  }
+}, [token]);
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
