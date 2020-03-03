@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import {Link} from 'react-router-dom';
 import history from "../utils/history";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,7 +53,6 @@ export default function MenuAppBar() {
     setAnchorEl(null);
     history.push('/')
     localStorage.clear("token");
-    alert("You are logged out");
   }
 
   return (
@@ -97,7 +97,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My Stuff</MenuItem>
+                <MenuItem onClick={handleClose}><Link to='/all-tech'>All Tech</Link></MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
