@@ -17,6 +17,7 @@ export const loginData = credential => dispatch => {
     .then(res => {
       console.log(res);
       window.localStorage.setItem("token", res.data.token);
+      window.localStorage.setItem("user_id", res.data.id);
       dispatch({ type: TOKEN_AQUIRED });
       history.push(`/user-page/${res.data.id}`);
     })
@@ -38,7 +39,7 @@ export const registerUser = newUser => dispatch => {
     });
 };
 
-export const getUser = (id) => dispatch => {
+export const getUser = id => dispatch => {
   dispatch({ type: GET_USER });
   axiosWithAuth()
     .get(`/users/${id}/stuffs`)

@@ -2,20 +2,25 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { getTech } from "../../reducers/actions/techAction";
 
+import CircularProgress from "@material-ui/core/CircularProgress";
 import TechItem from "./TechItem";
 
-const TechList = props => {
+const TechList = ({ getTech, stuff, error }) => {
   useEffect(() => {
-    props.getTech();
-  }, []);
+    getTech();
+  }, [getTech]);
 
   return (
     <div>
-      {props.error ? (
-        <div className="error">{props.error}</div>
+      <h1>Items for Rent</h1>
+      {error ? (
+        <div className="error">
+          <CircularProgress disableShrink />
+          {error}
+        </div>
       ) : (
         <div>
-          {props.stuff.map(tech => (
+          {stuff.map(tech => (
             <TechItem key={tech.id} tech={tech} />
           ))}
         </div>

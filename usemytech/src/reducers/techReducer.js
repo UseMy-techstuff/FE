@@ -1,4 +1,4 @@
-import {SET_TOKEN, TOKEN_AQUIRED, GET_USER, ALL_STUFF, SET_ERROR, GET_STUFF} from './actions/techAction';
+import {SET_TOKEN, TOKEN_AQUIRED, GET_USER, ALL_STUFF, SET_ERROR, GET_STUFF, USER_STUFF} from './actions/techAction';
 
 const initialState ={
     isLoading: false,
@@ -24,17 +24,25 @@ export const techReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: true
             };
+        case USER_STUFF:
+            console.log(action.payload)
+            return {
+              ...state,
+              isLoading: false,
+              userStuff: action.payload,
+              error: ""
+            };
         case GET_STUFF:
             return{
                 ...state,
                 isLoading: true
             };
         case ALL_STUFF:
-            console.log('payload',action.payload)
             return {
                 ...state,
                 isLoading: false,
                 stuff: action.payload,
+                error: ''
             }
         case SET_ERROR:
             return {

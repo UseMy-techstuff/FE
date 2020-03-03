@@ -30,6 +30,7 @@ export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const token = window.localStorage.getItem('token');
+  const user_id = window.localStorage.getItem('user_id');
 
   useEffect(()=>{
   if(token){
@@ -96,8 +97,12 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}><NavLink to='/all-tech'>All Tech</NavLink></MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <NavLink to={`/user-page/${user_id}`}>Profile</NavLink>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
+                  <NavLink to="/all-tech">All Tech</NavLink>
+                </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>

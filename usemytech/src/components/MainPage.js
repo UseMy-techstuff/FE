@@ -1,11 +1,20 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { getUser } from "../reducers/actions/techAction";
 
-const MainPage = props => {
+import { getUser } from "../reducers/actions/techAction";
+import { useParams } from "react-router-dom";
+
+const MainPage = ({getUser, userStuff}) => {
+  const {id} = useParams();
+
+
   useEffect(() => {
-    props.getUser();
-  });
+   getUser(id)
+  }, [id, getUser]);
+
+  useEffect(() => {
+    console.log(userStuff);
+  })
 
   return (
     <div>
@@ -15,7 +24,9 @@ const MainPage = props => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    userStuff: state.userStuff
+  };
 };
 
 export default connect(mapStateToProps, { getUser })(MainPage);

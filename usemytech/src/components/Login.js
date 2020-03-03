@@ -31,8 +31,6 @@ const Login = props => {
     });
   };
 
-  console.log(credential);
-
   const onSubmit = () => {
     console.log(credential);
     props.loginData(credential);
