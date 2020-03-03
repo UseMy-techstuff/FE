@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function TechItem(props) {
+export default function TechItem({tech}) {
   const classes = useStyles();
 
   return (
@@ -25,29 +25,29 @@ export default function TechItem(props) {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={props.img_url}
-          title={props.item_name}
+          image={tech.img_url}
+          title={tech.item_name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {props.item_name}
+            {tech.item_name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {props.description}
+            {tech.description}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            $ {props.price}
+            ${tech.price}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {props.rented ? (
-          <Button size="small" color="primary">
-            Rent
-          </Button>
-        ) : (
+        {tech.rented ? (
           <Button variant="contained" disabled>
             Taken
+          </Button>
+        ) : (
+          <Button size="small" color="primary">
+            Rent
           </Button>
         )}
       </CardActions>

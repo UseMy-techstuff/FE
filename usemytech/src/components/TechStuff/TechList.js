@@ -9,17 +9,16 @@ const TechList = props => {
     props.getTech();
   }, []);
 
-  useEffect(() => {
-    console.log("update stuff", props.stuff);
-  })
-
-  
   return (
     <div>
       {props.error ? (
         <div className="error">{props.error}</div>
       ) : (
-        <h1>Hello</h1>
+        <div>
+          {props.stuff.map(tech => (
+            <TechItem key={tech.id} tech={tech} />
+          ))}
+        </div>
       )}
     </div>
   );
