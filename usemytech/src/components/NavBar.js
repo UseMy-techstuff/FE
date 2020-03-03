@@ -37,6 +37,8 @@ export default function MenuAppBar() {
   }
 }, [token]);
 
+
+
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
   };

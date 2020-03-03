@@ -34,3 +34,4 @@ export const getUser = () => dispatch => {
       dispatch({ type: SET_ERROR, payload: "error fetching data from API!" });
     });
 };
+
