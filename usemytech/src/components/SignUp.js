@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, TextField } from '@material-ui/core';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm} from 'react-hook-form';
 import { object, string } from 'yup';
 
 const SignUp = () => {
@@ -8,7 +8,7 @@ const SignUp = () => {
     username: string().required('Username is required'),
     password: string().required('Password is required'),
   });
-  const { register, handleSubmit, errors, control } = useForm({ validationSchema: schema });
+  const { register, handleSubmit, errors} = useForm({ validationSchema: schema });
   const onSubmit = (data) => {
     console.log(data);
   };

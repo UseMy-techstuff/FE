@@ -4,6 +4,7 @@ export const SET_TOKEN = "SET_TOKEN";
 export const TOKEN_AQUIRED = "TOKEN_AQUIRED";
 export const GET_USER = "GET_USER";
 export const GET_STUFF = "GET_STUFF";
+export const SET_ERROR = "SET_ERROR";
 
 export const loginData = credential => dispatch => {
   dispatch({ type: SET_TOKEN });
@@ -30,5 +31,7 @@ export const getUser = () => dispatch => {
     })
     .catch(err => {
       console.error("You are getting an error of", err);
+      dispatch({ type: SET_ERROR, payload: "error fetching data from API!" });
     });
 };
+
