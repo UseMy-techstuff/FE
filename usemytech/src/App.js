@@ -1,6 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./utils/PrivateRoute";
+import history from './utils/history'
 
 import "./App.css";
 import NavBar from "./components/NavBar";
@@ -12,12 +13,12 @@ import MainPage from './components/MainPage';
 function App() {
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
         <NavBar />
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <PrivateRoute exact path='/user-page' component={MainPage}/>
+          <PrivateRoute exact path="/user-page" component={MainPage} />
         </Switch>
       </Router>
     </div>
