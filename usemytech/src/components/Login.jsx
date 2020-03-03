@@ -3,13 +3,13 @@ import { Button, TextField } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import { object, string } from 'yup';
 
-const Login: React.FC = () => {
+const Login = () => {
   const schema = object().shape({
     username: string().required('Username is required'),
     password: string().required('Password is required'),
   });
   const { register, handleSubmit, errors, control } = useForm({ validationSchema: schema });
-  const onSubmit = (data: any) => {
+  const onSubmit = (data) => {
     console.log(data);
   };
   return (

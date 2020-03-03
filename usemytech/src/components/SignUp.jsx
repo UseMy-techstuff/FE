@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, TextField } from '@material-ui/core';
 import { useForm, Controller } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { object, string } from 'yup';
 
-const Login: React.FC = () => {
+const Login = () => {
   const schema = object().shape({
     Fname: string().required('First name is required'),
     Lname: string().required('Last name is required'),
-    username: string().required('Username is required'),
+    email: string().required('Email is required'),
     password: string().required('Password is required'),
   });
-  const { register, handleSubmit, errors, control } = useForm({ validationSchema: schema });
-  const onSubmit = (data: any) => {
+  const { register, handleSubmit, errors, control, watch } = useForm({ validationSchema: schema });
+  const onSubmit = (data) => {
     console.log(data);
   };
+
+  const password = useRef({});
+  password.current = watch("password", "");
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
@@ -34,18 +38,35 @@ const Login: React.FC = () => {
         type="text"
     />
     <TextField
-        name="username"
-        error={!!errors.username}
-        label="Username"
-        helperText={errors.username ? errors.username.message : ''}
+        name="email"
+        error={!!errors.email}
+        label="Email"
+        helperText={errors.email ? errors.email.message : ''}
         type="email"
         inputRef={register}
     />
     <TextField
         name="password"
-        error={!!errors.password}
+        error={!!errors.password} 
         label="Password"
-        inputRef={register}
+        inputRef={register({
+            required: "You must specify a password",
+            minLength: {
+              value: 8,
+              message: "Password must have at least 8 characters"
+            }
+          })}
+        helperText={errors.password ? errors.password.message : ''}
+        type="password"
+    />
+    <TextField
+        name="ConfirmPassword"
+        error={!!errors.password}
+        label="Confirm Password"
+        inputRef={register({
+            validate: value =>
+              value === password.current || "The passwords do not match"
+          })}
         helperText={errors.password ? errors.password.message : ''}
         type="password"
     />
