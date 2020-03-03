@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import history from '../../utils/history';
 
 export const SET_TOKEN = "SET_TOKEN";
 export const TOKEN_AQUIRED = "TOKEN_AQUIRED";
@@ -15,7 +16,7 @@ export const loginData = credential => dispatch => {
       console.log(res);
       window.localStorage.setItem("token", res.data.token);
       dispatch({ type: TOKEN_AQUIRED });
-      this.props.history.push("/user-page");
+      history.push("/user-page");
     })
     .catch(err => {
       console.error("You are getting an error of", err);
@@ -28,7 +29,7 @@ export const registerUser = newUser => dispatch => {
     .post("/users/register", newUser)
     .then(res => {
       console.log(res);
-      this.props.history.push("/");
+      history.push("/");
     })
     .catch(err => {
       console.error("You are getting an error of", err);
