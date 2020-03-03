@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import history from "../utils/history";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -47,6 +48,13 @@ export default function MenuAppBar() {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    setAnchorEl(null);
+    history.push('/')
+    localStorage.clear("token");
+    alert("You are logged out");
+  }
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
@@ -90,6 +98,7 @@ export default function MenuAppBar() {
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                 <MenuItem onClick={handleClose}>My Stuff</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
