@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import history from "../utils/history";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -97,7 +97,7 @@ export default function MenuAppBar() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}><Link to='/all-tech'>All Tech</Link></MenuItem>
+                <MenuItem onClick={handleClose}><NavLink to='/all-tech'>All Tech</NavLink></MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </div>
