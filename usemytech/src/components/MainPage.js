@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getUser } from "../reducers/actions/techAction";
-import { useParams } from "react-router-dom";
+import { getUser, addNewItem } from "../reducers/actions/techAction";
 
 import {
   Button,
@@ -9,41 +8,65 @@ import {
   FormControl,
   OutlinedInput,
   InputLabel,
-  InputAdornment
+  InputAdornment,
+
 } from "@material-ui/core";
 
-const MainPage = ({ getUser, userStuff, user }) => {
-  const [addItem, setAddItem] = useState(true);
-  const { id } = useParams();
+const initialState = {
+  item_name: '',
+  price: '',
+  description: '',
+  img_url: '',
+  rented: false
+}
 
+const MainPage = ({ user, addNewItem, error, getUser }) => {
+  const [addItem, setAddItem] = useState(false);
+  const [item, setItem] = useState(initialState)
+  const user_id = window.localStorage.getItem('user_id')
+  
   useEffect(() => {
-    getUser(id);
-  }, [id, getUser]);
+    getUser(user_id);
+  }, [user_id, getUser]);
 
   const Editing = () => {
-    setAddItem(false);
+    setAddItem(true);
   };
 
-  useEffect(() => {
-    console.log(user);
-  });
+  const HandleChange = e => {
+    setItem({
+      ...item,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const HandleSubmit = e => {
+    e.preventDefault();
+    console.log(item)
+    addNewItem(user_id, item);
+    setAddItem(false)
+  }
 
   return (
     <div>
       <h1>{user.first_name}'s Page</h1>
-      <Button variant="contained" color="primary" onClick={() => Editing()}>
-        Add Item
-      </Button>
       {addItem ? (
         <></>
       ) : (
+        <Button variant="contained" color="primary" onClick={() => Editing()}>
+          Add Item
+        </Button>
+      )}
+      {addItem ? (
         <div>
-          <form noValidate autoComplete="off">
+          <form noValidate autoComplete="off" onSubmit={HandleSubmit}>
             <TextField
               required
+              name="item_name"
               id="outlined-basic"
               label="Item Name"
               variant="outlined"
+              onChange={HandleChange}
             />
             <FormControl fullWidth variant="outlined">
               <InputLabel required htmlFor="outlined-adornment-amount">
@@ -54,22 +77,35 @@ const MainPage = ({ getUser, userStuff, user }) => {
                 startAdornment={
                   <InputAdornment position="start">$</InputAdornment>
                 }
-                labelWidth={60}
+                name="price"
+                labelWidth={30}
+                onChange={HandleChange}
               />
             </FormControl>
             <TextField
+              name="description"
               id="outlined-basic"
               label="Description"
               variant="outlined"
+              onChange={HandleChange}
             />
             <TextField
+              name="img_url"
               id="outlined-basic"
               label="Image URL"
               variant="outlined"
+              onChange={HandleChange}
             />
+            <Button variant="contained" color="primary" type="submit">
+              Submit
+            </Button>
           </form>
         </div>
+      ) : (
+        <></>
       )}
+      <div>
+      </div>
     </div>
   );
 };
@@ -77,8 +113,8 @@ const MainPage = ({ getUser, userStuff, user }) => {
 const mapStateToProps = state => {
   return {
     user: state.user,
-    userStuff: state.userStuff
+    error: state.error
   };
 };
 
-export default connect(mapStateToProps, { getUser })(MainPage);
+export default connect(mapStateToProps, { getUser,addNewItem })(MainPage);
