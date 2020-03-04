@@ -20,16 +20,19 @@ const initialState = {
 };
 
 const UpdateItem = props => {
+  const user_id = window.localStorage.getItem('user_id')
   const [updateItem, setUpdateItem] = useState(initialState);
+
 
   useEffect(() => {
     const itemToUpdate = props.userStuff.find(
-      thing => `${thing.id}` === props.id
+      thing => `${thing.id}` === props.item_id
     );
+    console.log('item to update', itemToUpdate)
     if (itemToUpdate) {
       setUpdateItem(itemToUpdate);
     }
-  }, []);
+  }, [props.userStuff, props.item_id]);
 
   const HandleChange = e => {
     e.persist();
@@ -43,7 +46,7 @@ const UpdateItem = props => {
     });
   };
 
-  const HandleSubmit = (user_id, item_id) => {
+  const HandleSubmit = (item_id) => {
     axiosWithAuth()
       .put(`/users/${user_id}/stuffs/${item_id}`, updateItem)
       .then(res => {
@@ -51,19 +54,20 @@ const UpdateItem = props => {
         props.setIsEditing(false)
       })
       .catch(err => {
-        console.log(err);
+        console.log(err.response);
       });
   };
 
   return (
     <div>
-      <form noValidate autoComplete="off" onSubmit={HandleSubmit}>
+      <form noValidate autoComplete="off" onSubmit={() => HandleSubmit(updateItem.id)}>
         <TextField
           required
           name="item_name"
           id="outlined-basic"
           label="Item Name"
           variant="outlined"
+          value={updateItem.name}
           onChange={HandleChange}
         />
         <FormControl fullWidth variant="outlined">
@@ -75,6 +79,7 @@ const UpdateItem = props => {
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             name="price"
             labelWidth={30}
+            value={updateItem.price}
             onChange={HandleChange}
           />
         </FormControl>
@@ -83,6 +88,7 @@ const UpdateItem = props => {
           id="outlined-basic"
           label="Description"
           variant="outlined"
+          value={updateItem.description}
           onChange={HandleChange}
         />
         <TextField
@@ -90,6 +96,7 @@ const UpdateItem = props => {
           id="outlined-basic"
           label="Image URL"
           variant="outlined"
+          value={updateItem.img_url}
           onChange={HandleChange}
         />
         <Button variant="contained" color="primary" type="submit">
