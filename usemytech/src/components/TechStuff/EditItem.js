@@ -1,50 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import history from '../../utils/history';
 
 import UpdateItem from "./UpdateItem";
 
 import { Paper, Button } from "@material-ui/core";
 
-const initialData = {
+const initialData = [{
   item_name: "",
   price: "",
   description: "",
   img_url: "",
   rented: false
-};
+}];
 
 const EditItem = () => {
-  const user_id = window.localStorage.getItem("user_id");
-  const { id } = useParams();
+  const { id, user_id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState(initialData);
 
+ console.log("params", user_id);
+
   useEffect(() => {
-    console.log("params", id);
     axiosWithAuth()
       .get(`/users/${user_id}/stuffs/${id}`)
       .then(res => {
         console.log(res);
-        setItem(res.data);
+        setItem(res.data[0]);
       })
       .catch(err => {
         console.log(err.response);
       });
-  });
+  }, [id, user_id]);
 
   const HandleDelete = item_id => {
     axiosWithAuth()
       .delete(`/users/${user_id}/stuffs/${item_id}`)
       .then(res => {
         console.log(res);
+        history.push(`/user-page/${user_id}`);
       })
       .catch(err => {
         console.log(err.response);
       });
   };
 
-  useEffect(() => {});
+  console.log(item)
 
   return (
     <div>
@@ -56,7 +58,7 @@ const EditItem = () => {
           <p>{item.description}</p>
         </div>
         {isEditing && (
-          <UpdateItem setIsEditing={setIsEditing} item_id={item.item_id} />
+          <UpdateItem setIsEditing={setIsEditing} item_id={id} />
         )}
         <Button size="small" color="primary" onClick={() => setIsEditing(true)}>
           Update
@@ -64,7 +66,7 @@ const EditItem = () => {
         <Button
           size="small"
           color="primary"
-          onClick={() => HandleDelete(item.item_id)}
+          onClick={() => HandleDelete(id)}
         >
           Delete
         </Button>

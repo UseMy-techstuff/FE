@@ -44,7 +44,7 @@ export default function UserItem({ tech }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          <NavLink to={`/users/${id}/stuffs/${tech.id}`}>Edit</NavLink>
+          <NavLink to={`/user-page/${id}/stuffs/${tech.id}`}>Edit</NavLink>
         </Button>
       </CardActions>
     </Card>

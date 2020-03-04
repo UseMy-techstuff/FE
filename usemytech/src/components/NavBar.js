@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import {logout} from '../reducers/actions/techAction';
@@ -24,11 +24,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NavBar = ({ auth, logout }) => {
+const NavBar = ({ logout }) => {
   const classes = useStyles();
+  const [auth, setAuth] = useState(false)
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const user_id = window.localStorage.getItem("user_id");
+  const token = window.localStorage.getItem('token')
+
+  useEffect(() => {
+    if(token){
+      setAuth(true)
+    }else{
+      setAuth(false)
+    }
+  }, [setAuth, token])
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);

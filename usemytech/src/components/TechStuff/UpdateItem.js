@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import {useParams} from 'react-router-dom';
 
 import {
   Button,
@@ -20,19 +21,19 @@ const initialState = {
 };
 
 const UpdateItem = props => {
-  const user_id = window.localStorage.getItem('user_id')
+  const {id, user_id} = useParams();
   const [updateItem, setUpdateItem] = useState(initialState);
 
 
   useEffect(() => {
     const itemToUpdate = props.userStuff.find(
-      thing => `${thing.id}` === props.item_id
+      thing => `${thing.id}` === id
     );
     console.log('item to update', itemToUpdate)
     if (itemToUpdate) {
       setUpdateItem(itemToUpdate);
     }
-  }, [props.userStuff, props.item_id]);
+  }, [props.userStuff, id]);
 
   const HandleChange = e => {
     e.persist();
@@ -46,9 +47,10 @@ const UpdateItem = props => {
     });
   };
 
-  const HandleSubmit = (item_id) => {
+  const HandleSubmit = e => {
+    e.preventDefault();
     axiosWithAuth()
-      .put(`/users/${user_id}/stuffs/${item_id}`, updateItem)
+      .put(`/users/${user_id}/stuffs/${id}`, updateItem)
       .then(res => {
         console.log(res);
         props.setIsEditing(false)
@@ -58,16 +60,18 @@ const UpdateItem = props => {
       });
   };
 
+  console.log(updateItem)
+
   return (
     <div>
-      <form noValidate autoComplete="off" onSubmit={() => HandleSubmit(updateItem.id)}>
+      <form noValidate autoComplete="off" onSubmit={() => HandleSubmit()}>
         <TextField
           required
           name="item_name"
           id="outlined-basic"
           label="Item Name"
           variant="outlined"
-          value={updateItem.name}
+          value={updateItem.item_name}
           onChange={HandleChange}
         />
         <FormControl fullWidth variant="outlined">

@@ -2,29 +2,30 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getUser, addNewItem } from "../reducers/actions/techAction";
 
+import UserTechList from "./TechStuff/UserTechList";
+
 import {
   Button,
   TextField,
   FormControl,
   OutlinedInput,
   InputLabel,
-  InputAdornment,
-
+  InputAdornment
 } from "@material-ui/core";
 
 const initialState = {
-  item_name: '',
-  price: '',
-  description: '',
-  img_url: '',
+  item_name: "",
+  price: "",
+  description: "",
+  img_url: "",
   rented: false
-}
+};
 
-const MainPage = ({ user, addNewItem, error, getUser }) => {
+const MainPage = ({ addNewItem, getUser }) => {
   const [addItem, setAddItem] = useState(false);
-  const [item, setItem] = useState(initialState)
-  const user_id = window.localStorage.getItem('user_id')
-  
+  const [item, setItem] = useState(initialState);
+  const user_id = window.localStorage.getItem("user_id");
+
   useEffect(() => {
     getUser(user_id);
   }, [user_id, getUser]);
@@ -41,15 +42,16 @@ const MainPage = ({ user, addNewItem, error, getUser }) => {
   };
 
   const HandleSubmit = e => {
-    e.preventDefault();
-    console.log(item)
+    console.log(item);
     addNewItem(user_id, item);
-    setAddItem(false)
-  }
+    setAddItem(false);
+    getUser(user_id);
+  };
 
   return (
     <div>
-      <h1>{user.first_name}'s Page</h1>
+      <h1>Welcome to Use My Tech</h1>
+      <h3>Below you can add your tech to rent out!</h3>
       {addItem ? (
         <></>
       ) : (
@@ -104,8 +106,8 @@ const MainPage = ({ user, addNewItem, error, getUser }) => {
       ) : (
         <></>
       )}
-      <div>
-      </div>
+      <UserTechList />
+      <div></div>
     </div>
   );
 };
@@ -117,4 +119,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getUser,addNewItem })(MainPage);
+export default connect(mapStateToProps, { getUser, addNewItem })(MainPage);
