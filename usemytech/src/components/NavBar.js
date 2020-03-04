@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NavBar = ({ auth }) => {
+const NavBar = ({ auth, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -40,6 +40,7 @@ const NavBar = ({ auth }) => {
 
   const handleLogout = () => {
     setAnchorEl(null);
+    logout();
   };
 
   return (
