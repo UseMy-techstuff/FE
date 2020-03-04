@@ -3,6 +3,8 @@ import history from '../../utils/history';
 
 export const SET_TOKEN = "SET_TOKEN";
 export const TOKEN_AQUIRED = "TOKEN_AQUIRED";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const USER = 'USER';
 export const GET_USER = "GET_USER";
 export const USER_STUFF = "USER_STUFF";
 export const SET_ERROR = "SET_ERROR";
@@ -19,12 +21,19 @@ export const loginData = credential => dispatch => {
       window.localStorage.setItem("token", res.data.token);
       window.localStorage.setItem("user_id", res.data.id);
       dispatch({ type: TOKEN_AQUIRED });
+      dispatch({type: USER, payload: res.data})
       history.push(`/user-page/${res.data.id}`);
     })
     .catch(err => {
       console.error("You are getting an error of", err);
     });
 };
+
+export const logout = () => dispatch => {
+  dispatch({type: USER_LOGOUT})
+  history.push("/");
+  localStorage.clear("token");
+}
 
 export const registerUser = newUser => dispatch => {
   dispatch({ type: NEW_USER });

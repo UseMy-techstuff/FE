@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
-import {NavLink} from 'react-router-dom';
-import history from "../utils/history";
+import React, { useState } from "react";
+import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
+import {logout} from '../reducers/actions/techAction';
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -24,23 +24,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MenuAppBar() {
+const NavBar = ({ auth }) => {
   const classes = useStyles();
-  const [auth, setAuth] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const token = window.localStorage.getItem('token');
-  const user_id = window.localStorage.getItem('user_id');
-
-  useEffect(()=>{
-  if(token){
-      setAuth(true)
-  } else {
-      setAuth(false)
-  }
-}, [token]);
-
-
+  const user_id = window.localStorage.getItem("user_id");
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -52,22 +40,12 @@ export default function MenuAppBar() {
 
   const handleLogout = () => {
     setAnchorEl(null);
-    history.push('/')
-    localStorage.clear("token");
-  }
+  };
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             Use My Tech
           </Typography>
@@ -111,4 +89,12 @@ export default function MenuAppBar() {
       </AppBar>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+export default connect(mapStateToProps, {logout})(NavBar);

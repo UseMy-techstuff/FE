@@ -14,11 +14,13 @@ import TechList from './components/TechStuff/TechList';
 
 
 function App({store}) {
+  const token = window.localStorage.getItem("token");
+
   return (
     <div className="App">
     <Provider store={store}>
       <Router history={history}>
-        <NavBar />
+        <NavBar token={token}/>
         <Switch>
           <Route exact path="/" component={Login} />
           <Route path="/signup" component={SignUp} />
