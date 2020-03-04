@@ -80,6 +80,9 @@ const NavBar = ({ auth, logout }) => {
                   <NavLink to={`/user-page/${user_id}`}>Profile</NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
+                  <NavLink to={`/user-page/${user_id}/stuffs`}>My Tech</NavLink>
+                </MenuItem>
+                <MenuItem onClick={handleClose}>
                   <NavLink to="/all-tech">All Tech</NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>

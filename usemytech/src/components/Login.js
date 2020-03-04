@@ -55,9 +55,9 @@ const Login = props => {
       [e.target.name]: e.target.value
     });
   };
-  console.log(credential);
+
   const onSubmit = () => {
-    console.log(credential);
+    
     props.loginData(credential);
   };
   return (
