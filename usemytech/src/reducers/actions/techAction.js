@@ -25,7 +25,7 @@ export const loginData = credential => dispatch => {
       history.push(`/user-page/${res.data.id}`);
     })
     .catch(err => {
-      console.error("You are getting an error of", err);
+      console.error("You are getting an error of", err.response);
     });
 };
 
@@ -44,7 +44,7 @@ export const registerUser = newUser => dispatch => {
       history.push("/");
     })
     .catch(err => {
-      console.error("You are getting an error of", err);
+      console.error("You are getting an error of", err.response);
     });
 };
 
@@ -57,7 +57,7 @@ export const getUser = (id) => dispatch => {
       dispatch({ type: USER_STUFF, payload: res.data });
     })
     .catch(err => {
-      console.error("You are getting an error of", err);
+      console.error("You are getting an error of", err.response);
       dispatch({ type: SET_ERROR, payload: "error fetching data from API!" });
     });
 };
@@ -67,11 +67,12 @@ export const getTech = () => dispatch => {
   axiosWithAuth()
     .get("/stuffs")
     .then(res => {
+      console.log(res)
       console.log("api data", res.data);
       dispatch({ type: ALL_STUFF, payload: res.data });
     })
     .catch(err => {
-      console.error("You are getting an error of", err);
+      console.error("You are getting an error of", err.response);
       dispatch({ type: SET_ERROR, payload: "error fetching data from API!" });
     });
 };
