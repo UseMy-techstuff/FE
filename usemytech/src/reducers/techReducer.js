@@ -33,7 +33,6 @@ export const techReducer = (state = initialState, action) => {
                 isLoading: true
             };
         case USER_STUFF:
-            console.log(action.payload)
             return {
               ...state,
               isLoading: false,
