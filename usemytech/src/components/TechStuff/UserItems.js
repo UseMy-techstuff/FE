@@ -58,8 +58,8 @@ export default function UserItem({tech}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        {isEditing && <UpdateItem setIsEditing={setIsEditing} />}
-        <Button size="small" color="primary" onClick={setIsEditing(true)}>
+        {isEditing && <UpdateItem setIsEditing={setIsEditing} item_id={tech.id} />}
+        <Button size="small" color="primary" onClick={() => setIsEditing(true)}>
           Update
         </Button>
         <Button
