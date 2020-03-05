@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {useParams} from 'react-router-dom';
 import {getUser} from '../../reducers/actions/techAction';
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import history from '../../utils/history';
 
 import {
@@ -22,7 +23,21 @@ const initialState = {
   rented: false
 };
 
+const ColorButton = withStyles(theme => ({
+  root: {
+    width: "30%",
+    color: "white"
+  }
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: "1rem auto .2rem auto"
+  }
+}));
+
 const UpdateItem = props => {
+  const classes = useStyles();
   const {id, user_id} = useParams();
   const [updateItem, setUpdateItem] = useState(initialState);
 
@@ -67,7 +82,7 @@ const UpdateItem = props => {
   console.log(updateItem)
 
   return (
-    <div>
+    <div className="form-container">
       <form noValidate autoComplete="off" onSubmit={HandleSubmit}>
         <TextField
           required
@@ -86,7 +101,7 @@ const UpdateItem = props => {
             id="outlined-adornment-amount"
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
             name="price"
-            labelWidth={30}
+            labelWidth={50}
             value={updateItem.price}
             onChange={HandleChange}
           />
@@ -107,9 +122,14 @@ const UpdateItem = props => {
           value={updateItem.img_url}
           onChange={HandleChange}
         />
-        <Button variant="contained" color="primary" type="submit">
+        <ColorButton
+          className={classes.margin}
+          variant="contained"
+          color="primary"
+          type="submit"
+        >
           Submit
-        </Button>
+        </ColorButton>
       </form>
     </div>
   );
