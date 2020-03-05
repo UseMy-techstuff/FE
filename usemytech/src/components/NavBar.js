@@ -39,7 +39,7 @@ const NavBar = ({ token, logout }) => {
   const open = Boolean(anchorEl);
   const { user_id } = useParams();
 
-  useEffect(() => {
+  useEffect(() => {    
     if (token) {
       setAuth(true);
     } else {
@@ -58,6 +58,7 @@ const NavBar = ({ token, logout }) => {
   const handleLogout = () => {
     setAnchorEl(null);
     logout();
+    setAuth(false);
   };
 
   return (
