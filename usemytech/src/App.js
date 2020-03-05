@@ -11,6 +11,7 @@ import SignUp from "./components/SignUp.js";
 import MainPage from "./components/MainPage";
 import TechList from "./components/TechStuff/TechList";
 import EditItem from "./components/TechStuff/EditItem";
+import RentItem from "./components/TechStuff/RentItem";
 
 function App({ store }) {
   const token = window.localStorage.getItem("token");
@@ -34,6 +35,7 @@ function App({ store }) {
               component={EditItem}
             />
             <PrivateRoute exact path="/all-tech" component={TechList} />
+            <PrivateRoute exact path="/all-tech/:id" component={RentItem} />
           </Switch>
         </Router>
       </Provider>
