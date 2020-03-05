@@ -3,9 +3,26 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { registerUser } from "../reducers/actions/techAction";
 import { Button, TextField } from "@material-ui/core";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { useForm } from "react-hook-form";
 import { object, string } from "yup";
 import styled from "styled-components";
+
+const ColorButton = withStyles(theme => ({
+  root: {
+    color: "white",
+    backgroundColor: "#1A2639",
+    "&:hover": {
+      backgroundColor: "#1A2639"
+    }
+  }
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  }
+}));
 
 const Container = styled.div`
   display: flex;
@@ -44,6 +61,8 @@ const initialState = {
   password: ""
 };
 const SignUp = props => {
+  const classes = useStyles();
+
   const [newUser, setNewUser] = useState(initialState);
   const schema = object().shape({
     first_name: string().required("First Name is required"),
@@ -73,6 +92,7 @@ const SignUp = props => {
           <h1>Sign Up</h1>
           <UserName>
             <TextField
+              required
               name="first_name"
               error={!!errors.first_name}
               label="First Name"
@@ -84,6 +104,7 @@ const SignUp = props => {
           </UserName>
           <UserName>
             <TextField
+              required
               name="last_name"
               error={!!errors.last_name}
               label="Last Name"
@@ -95,6 +116,7 @@ const SignUp = props => {
           </UserName>
           <UserName>
             <TextField
+              required
               name="username"
               error={!!errors.username}
               label="Username"
@@ -106,6 +128,7 @@ const SignUp = props => {
           </UserName>
           <Password>
             <TextField
+              required
               name="password"
               error={!!errors.password}
               label="Password"
@@ -116,11 +139,16 @@ const SignUp = props => {
             />
           </Password>
           <Btn>
-            <Button color="primary" type="submit" variant="contained">
+            <ColorButton
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.margin}
+            >
               Submit
-            </Button>
+            </ColorButton>
           </Btn>
-          <Link to="/">Log In</Link>
+          <Link className='signup' to="/">Log In</Link>
         </Box>
       </form>
     </Container>
