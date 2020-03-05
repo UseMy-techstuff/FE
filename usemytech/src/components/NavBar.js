@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
-import {logout} from '../reducers/actions/techAction';
+import { NavLink, useParams } from "react-router-dom";
+import { logout } from "../reducers/actions/techAction";
 
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -24,21 +24,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NavBar = ({ logout }) => {
+const NavBar = ({ token, logout }) => {
   const classes = useStyles();
-  const [auth, setAuth] = useState(false)
+  const [auth, setAuth] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const user_id = window.localStorage.getItem("user_id");
-  const token = window.localStorage.getItem('token')
+  const { user_id } = useParams();
 
   useEffect(() => {
-    if(token){
-      setAuth(true)
-    }else{
-      setAuth(false)
+    if (token) {
+      setAuth(true);
+    } else {
+      setAuth(false);
     }
-  }, [setAuth, token])
+  }, [setAuth, token]);
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
@@ -90,9 +89,6 @@ const NavBar = ({ logout }) => {
                   <NavLink to={`/user-page/${user_id}`}>Profile</NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <NavLink to={`/user-page/${user_id}/stuffs`}>My Tech</NavLink>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
                   <NavLink to="/all-tech">All Tech</NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
@@ -111,4 +107,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, {logout})(NavBar);
+export default connect(mapStateToProps, { logout })(NavBar);

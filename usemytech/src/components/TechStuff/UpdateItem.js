@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import {useParams} from 'react-router-dom';
+import {getUser} from '../../reducers/actions/techAction';
+import history from '../../utils/history';
 
 import {
   Button,
@@ -52,8 +54,10 @@ const UpdateItem = props => {
     axiosWithAuth()
       .put(`/users/${user_id}/stuffs/${id}`, updateItem)
       .then(res => {
-        console.log(res);
+        console.log('update res:',res);
         props.setIsEditing(false)
+        props.getUser(user_id)
+        history.push(`/user-page/${user_id}`);
       })
       .catch(err => {
         console.log(err.response);
@@ -64,7 +68,7 @@ const UpdateItem = props => {
 
   return (
     <div>
-      <form noValidate autoComplete="off" onSubmit={() => HandleSubmit()}>
+      <form noValidate autoComplete="off" onSubmit={HandleSubmit}>
         <TextField
           required
           name="item_name"
@@ -117,4 +121,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps,{})(UpdateItem);
+export default connect(mapStateToProps,{getUser})(UpdateItem);

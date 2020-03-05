@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import UserItems from "./UserItems";
 
 const UserTechList = ({ userStuff }) => {
-  console.log(userStuff);
+  
   return (
     <div>
       <h2>My Stuff for Rent</h2>
