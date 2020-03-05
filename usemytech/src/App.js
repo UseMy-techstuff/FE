@@ -10,8 +10,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp.js";
 import MainPage from "./components/MainPage";
 import TechList from "./components/TechStuff/TechList";
-import UserTechList from './components/TechStuff/UserTechList';
-import EditItem from './components/TechStuff/EditItem';
+import EditItem from "./components/TechStuff/EditItem";
 
 function App({ store }) {
   const token = window.localStorage.getItem("token");
@@ -24,9 +23,16 @@ function App({ store }) {
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />
-            <PrivateRoute exact path="/user-page/:user_id" component={MainPage} />
-            <PrivateRoute exact path='/user-page/:user_id/stuffs' component={UserTechList} />
-            <PrivateRoute exact path='/user-page/:user_id/stuffs/:id' component={EditItem} />
+            <PrivateRoute
+              exact
+              path="/user-page/:user_id"
+              component={MainPage}
+            />
+            <PrivateRoute
+              exact
+              path="/user-page/:user_id/stuffs/:id"
+              component={EditItem}
+            />
             <PrivateRoute exact path="/all-tech" component={TechList} />
           </Switch>
         </Router>

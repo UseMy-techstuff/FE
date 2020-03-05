@@ -7,20 +7,18 @@ import UpdateItem from "./UpdateItem";
 
 import { Paper, Button } from "@material-ui/core";
 
-const initialData = [{
+const initialData = {
   item_name: "",
   price: "",
   description: "",
   img_url: "",
   rented: false
-}];
+};
 
 const EditItem = () => {
   const { id, user_id } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [item, setItem] = useState(initialData);
-
- console.log("params", user_id);
 
   useEffect(() => {
     axiosWithAuth()
