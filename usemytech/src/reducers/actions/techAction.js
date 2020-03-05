@@ -87,3 +87,16 @@ export const addNewItem = (id, item) => dispatch => {
       console.log(err.response)
     })
 };
+
+export const rent = (id, item_id, updaterent) => dispatch => {
+  axiosWithAuth()
+    .put(`/users/${id}/stuffs/${item_id}`, updaterent)
+    .then(res => {
+      console.log("update rent:", res);
+      getUser(id);
+      history.push(`/all-tech/${item_id}`);
+    })
+    .catch(err => {
+      console.log(err.response);
+    });
+}
