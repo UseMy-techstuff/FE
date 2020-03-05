@@ -16,6 +16,14 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
+  nav: {
+    background: "#3E4A61",
+    color: "#C24D2C"
+  },
+  menu: {
+    color: 'black',
+    textDecoration: 'none'
+  },
   menuButton: {
     marginRight: theme.spacing(2)
   },
@@ -54,7 +62,7 @@ const NavBar = ({ token, logout }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar className={classes.nav} position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             Use My Tech
@@ -86,10 +94,17 @@ const NavBar = ({ token, logout }) => {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>
-                  <NavLink to={`/user-page/${user_id}`}>Profile</NavLink>
+                  <NavLink
+                    className={classes.menu}
+                    to={`/user-page/${user_id}`}
+                  >
+                    Profile
+                  </NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <NavLink to="/all-tech">All Tech</NavLink>
+                  <NavLink className={classes.menu} to="/all-tech">
+                    All Tech
+                  </NavLink>
                 </MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>

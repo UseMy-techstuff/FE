@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import history from '../../utils/history';
+import history from "../../utils/history";
 
 import UpdateItem from "./UpdateItem";
 
@@ -44,7 +44,7 @@ const EditItem = () => {
       });
   };
 
-  console.log(item)
+  console.log(item);
 
   return (
     <div>
@@ -55,17 +55,19 @@ const EditItem = () => {
         <div>
           <p>{item.description}</p>
         </div>
-        {isEditing && (
+        {isEditing ? (
           <UpdateItem setIsEditing={setIsEditing} item_id={id} />
+        ) : (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => setIsEditing(true)}
+          >
+            Update
+          </Button>
         )}
-        <Button size="small" color="primary" onClick={() => setIsEditing(true)}>
-          Update
-        </Button>
-        <Button
-          size="small"
-          color="primary"
-          onClick={() => HandleDelete(id)}
-        >
+
+        <Button size="small" color="primary" onClick={() => HandleDelete(id)}>
           Delete
         </Button>
       </Paper>

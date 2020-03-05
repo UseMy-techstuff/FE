@@ -19,7 +19,7 @@ const TechList = ({ getTech, stuff, error }) => {
           {error}
         </div>
       ) : (
-        <div>
+        <div className="user-cards">
           {stuff.map(tech => (
             <TechItem key={tech.id} tech={tech} />
           ))}

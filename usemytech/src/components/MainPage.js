@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { getUser, addNewItem } from "../reducers/actions/techAction";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 import UserTechList from "./TechStuff/UserTechList";
 
@@ -13,6 +14,19 @@ import {
   InputAdornment
 } from "@material-ui/core";
 
+const ColorButton = withStyles(theme => ({
+  root: {
+    width: '30%',
+    color: "white",
+  }
+}))(Button);
+
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: "1rem auto .2rem auto"
+  }
+}));
+
 const initialState = {
   item_name: "",
   price: "",
@@ -22,6 +36,7 @@ const initialState = {
 };
 
 const MainPage = ({ addNewItem, getUser }) => {
+  const classes = useStyles();
   const [addItem, setAddItem] = useState(false);
   const [item, setItem] = useState(initialState);
   const user_id = window.localStorage.getItem("user_id");
@@ -60,7 +75,7 @@ const MainPage = ({ addNewItem, getUser }) => {
         </Button>
       )}
       {addItem ? (
-        <div>
+        <div className="form-container">
           <form noValidate autoComplete="off" onSubmit={HandleSubmit}>
             <TextField
               required
@@ -80,7 +95,7 @@ const MainPage = ({ addNewItem, getUser }) => {
                   <InputAdornment position="start">$</InputAdornment>
                 }
                 name="price"
-                labelWidth={30}
+                labelWidth={50}
                 onChange={HandleChange}
               />
             </FormControl>
@@ -98,9 +113,14 @@ const MainPage = ({ addNewItem, getUser }) => {
               variant="outlined"
               onChange={HandleChange}
             />
-            <Button variant="contained" color="primary" type="submit">
+            <ColorButton
+              className={classes.margin}
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
               Submit
-            </Button>
+            </ColorButton>
           </form>
         </div>
       ) : (
