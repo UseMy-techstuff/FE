@@ -20,7 +20,7 @@ function App({ store }) {
     <div className="App">
       <Provider store={store}>
         <Router history={history}>
-          <NavBar token={token} />
+          <NavBar token={token}/>
           <Switch>
             <Route exact path="/" component={Login} />
             <Route path="/signup" component={SignUp} />

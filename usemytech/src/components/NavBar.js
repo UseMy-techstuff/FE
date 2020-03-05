@@ -21,8 +21,8 @@ const useStyles = makeStyles(theme => ({
     color: "#C24D2C"
   },
   menu: {
-    color: 'black',
-    textDecoration: 'none'
+    color: "black",
+    textDecoration: "none"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -32,20 +32,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NavBar = ({ token, logout }) => {
+const NavBar = ({ logout, auth }) => {
   const classes = useStyles();
-  const [auth, setAuth] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const { user_id } = useParams();
-
-  useEffect(() => {
-    if (token) {
-      setAuth(true);
-    } else {
-      setAuth(false);
-    }
-  }, [setAuth, token]);
 
   const handleMenu = event => {
     setAnchorEl(event.currentTarget);
