@@ -94,7 +94,7 @@ export const rent = (id, item_id, updaterent) => dispatch => {
     .then(res => {
       console.log("update rent:", res);
       getUser(id);
-      history.push(`/all-tech/${item_id}`);
+      history.push(`/all-tech`);
     })
     .catch(err => {
       console.log(err.response);
